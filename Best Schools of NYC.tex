@@ -1,0 +1,1856 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Analyzing NYC School Data}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{Read in the data}\label{read-in-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas}
+        \PY{k+kn}{import} \PY{n+nn}{numpy}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{random} 
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{as} \PY{n+nn}{colors}
+        \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{basemap} \PY{k}{import} \PY{n}{Basemap}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+        
+        \PY{n}{data\PYZus{}files} \PY{o}{=} \PY{p}{[}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}2010.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demographics.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}results.csv}\PY{l+s+s2}{\PYZdq{}}
+        \PY{p}{]}
+        
+        \PY{n}{data} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+        \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n}{data\PYZus{}files}\PY{p}{:}
+            \PY{n}{d} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{p}{)}
+            \PY{n}{data}\PY{p}{[}\PY{n}{f}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{d}
+\end{Verbatim}
+
+
+    \subsubsection{Read in the surveys}\label{read-in-the-surveys}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{all\PYZus{}survey} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/survey\PYZus{}all.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windows\PYZhy{}1252}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{d75\PYZus{}survey} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/survey\PYZus{}d75.txt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{delimiter}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{windows\PYZhy{}1252}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Combine two data frames by rows}
+        \PY{n}{survey} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{all\PYZus{}survey}\PY{p}{,} \PY{n}{d75\PYZus{}survey}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Change the column head to align with other data frame}
+        \PY{n}{survey}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{survey}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Identify and make a feature list of our interest}
+        \PY{n}{survey\PYZus{}fields} \PY{o}{=} \PY{p}{[}
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rr\PYZus{}s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rr\PYZus{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rr\PYZus{}p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}s}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}t}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N\PYZus{}p}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saf\PYZus{}p\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{com\PYZus{}p\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eng\PYZus{}p\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aca\PYZus{}p\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saf\PYZus{}t\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{com\PYZus{}t\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eng\PYZus{}t\PYZus{}10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aca\PYZus{}t\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saf\PYZus{}s\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{com\PYZus{}s\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eng\PYZus{}s\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aca\PYZus{}s\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saf\PYZus{}tot\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{com\PYZus{}tot\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{eng\PYZus{}tot\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{aca\PYZus{}tot\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{p}{]}
+        \PY{n}{survey} \PY{o}{=} \PY{n}{survey}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{survey\PYZus{}fields}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{survey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{survey}
+        
+        \PY{c+c1}{\PYZsh{} Print results for verification}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{survey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{survey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+      DBN  rr\_s  rr\_t  rr\_p    N\_s   N\_t    N\_p  saf\_p\_11  com\_p\_11  eng\_p\_11  \textbackslash{}
+0  01M015   NaN    88    60    NaN  22.0   90.0       8.5       7.6       7.5   
+1  01M019   NaN   100    60    NaN  34.0  161.0       8.4       7.6       7.6   
+2  01M020   NaN    88    73    NaN  42.0  367.0       8.9       8.3       8.3   
+3  01M034  89.0    73    50  145.0  29.0  151.0       8.8       8.2       8.0   
+4  01M063   NaN   100    60    NaN  23.0   90.0       8.7       7.9       8.1   
+
+      {\ldots}      eng\_t\_10  aca\_t\_11  saf\_s\_11  com\_s\_11  eng\_s\_11  aca\_s\_11  \textbackslash{}
+0     {\ldots}           NaN       7.9       NaN       NaN       NaN       NaN   
+1     {\ldots}           NaN       9.1       NaN       NaN       NaN       NaN   
+2     {\ldots}           NaN       7.5       NaN       NaN       NaN       NaN   
+3     {\ldots}           NaN       7.8       6.2       5.9       6.5       7.4   
+4     {\ldots}           NaN       8.1       NaN       NaN       NaN       NaN   
+
+   saf\_tot\_11  com\_tot\_11  eng\_tot\_11  aca\_tot\_11  
+0         8.0         7.7         7.5         7.9  
+1         8.5         8.1         8.2         8.4  
+2         8.2         7.3         7.5         8.0  
+3         7.3         6.7         7.1         7.9  
+4         8.5         7.6         7.9         8.0  
+
+[5 rows x 23 columns]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} (1702, 23)
+\end{Verbatim}
+            
+    \subsubsection{Add DBN columns}\label{add-dbn-columns}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Change the column head to align with other data frame}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dbn}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Set uniform field length to develop same size DBN value in the data frame}
+        \PY{k}{def} \PY{n+nf}{pad\PYZus{}csd}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+            \PY{n}{string\PYZus{}representation} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{num}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{string\PYZus{}representation}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{k}{return} \PY{n}{string\PYZus{}representation}
+            \PY{k}{else}\PY{p}{:}
+                \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{0}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{string\PYZus{}representation}
+        
+        \PY{c+c1}{\PYZsh{} Call function to set same size of  DBN prefix}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{padded\PYZus{}csd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CSD}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{pad\PYZus{}csd}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Generate DBN field by combining two columns }
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{padded\PYZus{}csd}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{+} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SCHOOL CODE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Print results for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 0    01M015
+        1    01M015
+        2    01M015
+        3    01M015
+        4    01M015
+        Name: DBN, dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Convert columns to
+numeric}\label{convert-columns-to-numeric}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} List of useful columns from the sat\PYZus{}result data frame }
+        \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Math Avg. Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Critical Reading Avg. Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SAT Writing Avg. Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Convert the string data into numeric form, transfor errors into null}
+        \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{cols}\PY{p}{:}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}results}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{c}\PY{p}{]} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}results}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coerce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Combining three column valus into one and store it into a new column}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{+} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Display results for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}results}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 0    1122.0
+        1    1172.0
+        2    1149.0
+        3    1174.0
+        4    1207.0
+        Name: sat\_score, dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{Extract Latitude and Longiude from the
+Data}\label{extract-latitude-and-longiude-from-the-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Function to extract latitude from the given string}
+        \PY{k}{def} \PY{n+nf}{find\PYZus{}lat}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{:}
+            \PY{n}{coords} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{(.+, .+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{loc}\PY{p}{)}
+            \PY{n}{lat} \PY{o}{=} \PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{(}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{k}{return} \PY{n}{lat}
+        
+        \PY{c+c1}{\PYZsh{} Function to extract longitude from the given string}
+        \PY{k}{def} \PY{n+nf}{find\PYZus{}lon}\PY{p}{(}\PY{n}{loc}\PY{p}{)}\PY{p}{:}
+            \PY{n}{coords} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{(.+, .+}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{loc}\PY{p}{)}
+            \PY{n}{lon} \PY{o}{=} \PY{n}{coords}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{,}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{lon}
+        
+        \PY{c+c1}{\PYZsh{} Extract latitude and longitude from the column at store them in new columns}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Location 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{find\PYZus{}lat}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Location 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{find\PYZus{}lon}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert the extrated latitude and longitude into numeric form, transform errors into null}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coerce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coerce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Print results for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hs\PYZus{}directory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}       dbn                                        school\_name       boro  \textbackslash{}
+        0  17K548                Brooklyn School for Music \& Theatre   Brooklyn   
+        1  09X543                   High School for Violin and Dance      Bronx   
+        2  09X327        Comprehensive Model School Project M.S. 327      Bronx   
+        3  02M280     Manhattan Early College School for Advertising  Manhattan   
+        4  28Q680  Queens Gateway to Health Sciences Secondary Sc{\ldots}     Queens   
+        
+          building\_code    phone\_number    fax\_number grade\_span\_min  grade\_span\_max  \textbackslash{}
+        0          K440    718-230-6250  718-230-6262              9              12   
+        1          X400    718-842-0687  718-589-9849              9              12   
+        2          X240    718-294-8111  718-294-8109              6              12   
+        3          M520  718-935-3477             NaN              9              10   
+        4          Q695    718-969-3155  718-969-3552              6              12   
+        
+          expgrade\_span\_min  expgrade\_span\_max    {\ldots}      \textbackslash{}
+        0               NaN                NaN    {\ldots}       
+        1               NaN                NaN    {\ldots}       
+        2               NaN                NaN    {\ldots}       
+        3                 9               14.0    {\ldots}       
+        4               NaN                NaN    {\ldots}       
+        
+                                priority05 priority06 priority07 priority08  \textbackslash{}
+        0                              NaN        NaN        NaN        NaN   
+        1                              NaN        NaN        NaN        NaN   
+        2  Then to New York City residents        NaN        NaN        NaN   
+        3                              NaN        NaN        NaN        NaN   
+        4                              NaN        NaN        NaN        NaN   
+        
+          priority09  priority10                                         Location 1  \textbackslash{}
+        0        NaN         NaN  883 Classon Avenue\textbackslash{}nBrooklyn, NY 11225\textbackslash{}n(40.67{\ldots}   
+        1        NaN         NaN  1110 Boston Road\textbackslash{}nBronx, NY 10456\textbackslash{}n(40.8276026{\ldots}   
+        2        NaN         NaN  1501 Jerome Avenue\textbackslash{}nBronx, NY 10452\textbackslash{}n(40.84241{\ldots}   
+        3        NaN         NaN  411 Pearl Street\textbackslash{}nNew York, NY 10038\textbackslash{}n(40.7106{\ldots}   
+        4        NaN         NaN  160-20 Goethals Avenue\textbackslash{}nJamaica, NY 11432\textbackslash{}n(40{\ldots}   
+        
+              DBN        lat        lon  
+        0  17K548  40.670299 -73.961648  
+        1  09X543  40.827603 -73.904475  
+        2  09X327  40.842414 -73.916162  
+        3  02M280  40.710679 -74.000807  
+        4  28Q680  40.718810 -73.806500  
+        
+        [5 rows x 61 columns]
+\end{Verbatim}
+            
+    \subsubsection{Condense Datasets}\label{condense-datasets}
+
+    \paragraph{Data frame 'class\_size'}\label{data-frame-class_size}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{class\PYZus{}size} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Segregate the data frame from high school students under general education category}
+        \PY{n}{class\PYZus{}size} \PY{o}{=} \PY{n}{class\PYZus{}size}\PY{p}{[}\PY{n}{class\PYZus{}size}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GRADE }\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{09\PYZhy{}12}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{class\PYZus{}size} \PY{o}{=} \PY{n}{class\PYZus{}size}\PY{p}{[}\PY{n}{class\PYZus{}size}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PROGRAM TYPE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GEN ED}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{class\PYZus{}size}\PY{p}{[}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GRADE }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PROGRAM TYPE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Consolidate the data frame for unique DBN field}
+        \PY{n}{class\PYZus{}size} \PY{o}{=} \PY{n}{class\PYZus{}size}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Converting back DBN as index to column }
+        \PY{n}{class\PYZus{}size}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{class\PYZus{}size}
+        
+        \PY{c+c1}{\PYZsh{} Print data frame for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{class\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    GRADE  PROGRAM TYPE
+225  09-12       GEN ED
+226  09-12       GEN ED
+227  09-12       GEN ED
+228  09-12       GEN ED
+229  09-12       GEN ED
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}       DBN  CSD  NUMBER OF STUDENTS / SEATS FILLED  NUMBER OF SECTIONS  \textbackslash{}
+        0  01M292    1                            88.0000            4.000000   
+        1  01M332    1                            46.0000            2.000000   
+        2  01M378    1                            33.0000            1.000000   
+        3  01M448    1                           105.6875            4.750000   
+        4  01M450    1                            57.6000            2.733333   
+        
+           AVERAGE CLASS SIZE  SIZE OF SMALLEST CLASS  SIZE OF LARGEST CLASS  \textbackslash{}
+        0           22.564286                   18.50              26.571429   
+        1           22.000000                   21.00              23.500000   
+        2           33.000000                   33.00              33.000000   
+        3           22.231250                   18.25              27.062500   
+        4           21.200000                   19.40              22.866667   
+        
+           SCHOOLWIDE PUPIL-TEACHER RATIO  
+        0                             NaN  
+        1                             NaN  
+        2                             NaN  
+        3                             NaN  
+        4                             NaN  
+\end{Verbatim}
+            
+    \paragraph{Data frame 'demographics'}\label{data-frame-demographics}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Seggregating the dataframe \PYZsq{}demographics\PYZsq{} based on the \PYZsq{}schoolyear\PYZsq{} to extract unique DBN}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demographics}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demographics}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demographics}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{schoolyear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{20112012}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Print for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{demographics}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}        DBN                                              Name  schoolyear  \textbackslash{}
+        6   01M015  P.S. 015 ROBERTO CLEMENTE                           20112012   
+        13  01M019  P.S. 019 ASHER LEVY                                 20112012   
+        20  01M020  PS 020 ANNA SILVER                                  20112012   
+        27  01M034  PS 034 FRANKLIN D ROOSEVELT                         20112012   
+        35  01M063  PS 063 WILLIAM MCKINLEY                             20112012   
+        
+           fl\_percent  frl\_percent  total\_enrollment prek    k grade1 grade2  \textbackslash{}
+        6         NaN         89.4               189   13   31     35     28   
+        13        NaN         61.5               328   32   46     52     54   
+        20        NaN         92.5               626   52  102    121     87   
+        27        NaN         99.7               401   14   34     38     36   
+        35        NaN         78.9               176   18   20     30     21   
+        
+              {\ldots}     black\_num black\_per hispanic\_num hispanic\_per white\_num  \textbackslash{}
+        6     {\ldots}            63      33.3          109         57.7         4   
+        13    {\ldots}            81      24.7          158         48.2        28   
+        20    {\ldots}            55       8.8          357         57.0        16   
+        27    {\ldots}            90      22.4          275         68.6         8   
+        35    {\ldots}            41      23.3          110         62.5        15   
+        
+           white\_per male\_num male\_per female\_num female\_per  
+        6        2.1     97.0     51.3       92.0       48.7  
+        13       8.5    147.0     44.8      181.0       55.2  
+        20       2.6    330.0     52.7      296.0       47.3  
+        27       2.0    204.0     50.9      197.0       49.1  
+        35       8.5     97.0     55.1       79.0       44.9  
+        
+        [5 rows x 38 columns]
+\end{Verbatim}
+            
+    \paragraph{Data frame 'graduation'}\label{data-frame-graduation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Seggregating the dataframe \PYZsq{}graduation\PYZsq{} for features useful to get unique DBN}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cohort}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2006}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Demographic}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total Cohort}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Print for verification}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}      Demographic     DBN                            School Name Cohort  \textbackslash{}
+        3   Total Cohort  01M292  HENRY STREET SCHOOL FOR INTERNATIONAL   2006   
+        10  Total Cohort  01M448    UNIVERSITY NEIGHBORHOOD HIGH SCHOOL   2006   
+        17  Total Cohort  01M450             EAST SIDE COMMUNITY SCHOOL   2006   
+        24  Total Cohort  01M509                MARTA VALLE HIGH SCHOOL   2006   
+        31  Total Cohort  01M515  LOWER EAST SIDE PREPARATORY HIGH SCHO   2006   
+        
+            Total Cohort Total Grads - n Total Grads - \% of cohort Total Regents - n  \textbackslash{}
+        3             78              43                     55.1\%                36   
+        10           124              53                     42.7\%                42   
+        17            90              70                     77.8\%                67   
+        24            84              47                       56\%                40   
+        31           193             105                     54.4\%                91   
+        
+           Total Regents - \% of cohort Total Regents - \% of grads  \textbackslash{}
+        3                        46.2\%                      83.7\%   
+        10                       33.9\%                      79.2\%   
+        17         74.400000000000006\%                      95.7\%   
+        24                       47.6\%                      85.1\%   
+        31                       47.2\%                      86.7\%   
+        
+                      {\ldots}            Regents w/o Advanced - n  \textbackslash{}
+        3             {\ldots}                                  36   
+        10            {\ldots}                                  34   
+        17            {\ldots}                                  67   
+        24            {\ldots}                                  23   
+        31            {\ldots}                                  22   
+        
+           Regents w/o Advanced - \% of cohort Regents w/o Advanced - \% of grads  \textbackslash{}
+        3                               46.2\%                             83.7\%   
+        10                              27.4\%                             64.2\%   
+        17                74.400000000000006\%                             95.7\%   
+        24                              27.4\%                             48.9\%   
+        31                              11.4\%                               21\%   
+        
+           Local - n Local - \% of cohort Local - \% of grads Still Enrolled - n  \textbackslash{}
+        3          7                  9\%              16.3\%                 16   
+        10        11                8.9\%              20.8\%                 46   
+        17         3                3.3\%               4.3\%                 15   
+        24         7  8.300000000000001\%              14.9\%                 25   
+        31        14                7.3\%              13.3\%                 53   
+        
+           Still Enrolled - \% of cohort Dropped Out - n Dropped Out - \% of cohort  
+        3                         20.5\%              11                     14.1\%  
+        10                        37.1\%              20       16.100000000000001\%  
+        17                        16.7\%               5                      5.6\%  
+        24                        29.8\%               5                        6\%  
+        31                        27.5\%              35       18.100000000000001\%  
+        
+        [5 rows x 23 columns]
+\end{Verbatim}
+            
+    \subsubsection{Convert AP scores to
+numeric}\label{convert-ap-scores-to-numeric}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Convert \PYZsq{}ap\PYZus{}2010\PYZsq{} data frame columns to numeric format, transform errors into null}
+        \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AP Test Takers }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total Exams Taken}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Exams with scores 3 4 or 5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{cols}\PY{p}{:}
+            \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,} \PY{n}{errors}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{coerce}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{} Print for verification}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ap\PYZus{}2010}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(258, 5)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}       DBN                             SchoolName  AP Test Takers   \textbackslash{}
+        0  01M448           UNIVERSITY NEIGHBORHOOD H.S.             39.0   
+        1  01M450                 EAST SIDE COMMUNITY HS             19.0   
+        2  01M515                    LOWER EASTSIDE PREP             24.0   
+        3  01M539         NEW EXPLORATIONS SCI,TECH,MATH            255.0   
+        4  02M296  High School of Hospitality Management              NaN   
+        
+           Total Exams Taken  Number of Exams with scores 3 4 or 5  
+        0               49.0                                  10.0  
+        1               21.0                                   NaN  
+        2               26.0                                  24.0  
+        3              377.0                                 191.0  
+        4                NaN                                   NaN  
+\end{Verbatim}
+            
+    \subsubsection{Combine the Datasets}\label{combine-the-datasets}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{combined} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}results}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{combined} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}2010}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{combined} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{graduation}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{left}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print for verification}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{combined}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{combined}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(479, 33)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}       DBN                                    SCHOOL NAME  \textbackslash{}
+         0  01M292  HENRY STREET SCHOOL FOR INTERNATIONAL STUDIES   
+         1  01M448            UNIVERSITY NEIGHBORHOOD HIGH SCHOOL   
+         2  01M450                     EAST SIDE COMMUNITY SCHOOL   
+         3  01M458                      FORSYTH SATELLITE ACADEMY   
+         4  01M509                        MARTA VALLE HIGH SCHOOL   
+         
+           Num of SAT Test Takers  SAT Critical Reading Avg. Score  \textbackslash{}
+         0                     29                            355.0   
+         1                     91                            383.0   
+         2                     70                            377.0   
+         3                      7                            414.0   
+         4                     44                            390.0   
+         
+            SAT Math Avg. Score  SAT Writing Avg. Score  sat\_score  \textbackslash{}
+         0                404.0                   363.0     1122.0   
+         1                423.0                   366.0     1172.0   
+         2                402.0                   370.0     1149.0   
+         3                401.0                   359.0     1174.0   
+         4                433.0                   384.0     1207.0   
+         
+                              SchoolName  AP Test Takers   Total Exams Taken  \textbackslash{}
+         0                           NaN              NaN                NaN   
+         1  UNIVERSITY NEIGHBORHOOD H.S.             39.0               49.0   
+         2        EAST SIDE COMMUNITY HS             19.0               21.0   
+         3                           NaN              NaN                NaN   
+         4                           NaN              NaN                NaN   
+         
+                      {\ldots}             Regents w/o Advanced - n  \textbackslash{}
+         0            {\ldots}                                   36   
+         1            {\ldots}                                   34   
+         2            {\ldots}                                   67   
+         3            {\ldots}                                  NaN   
+         4            {\ldots}                                   23   
+         
+           Regents w/o Advanced - \% of cohort Regents w/o Advanced - \% of grads  \textbackslash{}
+         0                              46.2\%                             83.7\%   
+         1                              27.4\%                             64.2\%   
+         2                74.400000000000006\%                             95.7\%   
+         3                                NaN                               NaN   
+         4                              27.4\%                             48.9\%   
+         
+           Local - n  Local - \% of cohort Local - \% of grads Still Enrolled - n  \textbackslash{}
+         0         7                   9\%              16.3\%                 16   
+         1        11                 8.9\%              20.8\%                 46   
+         2         3                 3.3\%               4.3\%                 15   
+         3       NaN                  NaN                NaN                NaN   
+         4         7   8.300000000000001\%              14.9\%                 25   
+         
+           Still Enrolled - \% of cohort Dropped Out - n Dropped Out - \% of cohort  
+         0                        20.5\%              11                     14.1\%  
+         1                        37.1\%              20       16.100000000000001\%  
+         2                        16.7\%               5                      5.6\%  
+         3                          NaN             NaN                       NaN  
+         4                        29.8\%               5                        6\%  
+         
+         [5 rows x 33 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{to\PYZus{}merge} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{class\PYZus{}size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{demographics}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{survey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hs\PYZus{}directory}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{to\PYZus{}merge}\PY{p}{:}
+             \PY{n}{combined} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{inner}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print for verification}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{combined}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{combined}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(363, 159)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}       DBN                                        SCHOOL NAME  \textbackslash{}
+         0  01M292      HENRY STREET SCHOOL FOR INTERNATIONAL STUDIES   
+         1  01M448                UNIVERSITY NEIGHBORHOOD HIGH SCHOOL   
+         2  01M450                         EAST SIDE COMMUNITY SCHOOL   
+         3  01M509                            MARTA VALLE HIGH SCHOOL   
+         4  01M539  NEW EXPLORATIONS INTO SCIENCE, TECHNOLOGY AND {\ldots}   
+         
+           Num of SAT Test Takers  SAT Critical Reading Avg. Score  \textbackslash{}
+         0                     29                            355.0   
+         1                     91                            383.0   
+         2                     70                            377.0   
+         3                     44                            390.0   
+         4                    159                            522.0   
+         
+            SAT Math Avg. Score  SAT Writing Avg. Score  sat\_score  \textbackslash{}
+         0                404.0                   363.0     1122.0   
+         1                423.0                   366.0     1172.0   
+         2                402.0                   370.0     1149.0   
+         3                433.0                   384.0     1207.0   
+         4                574.0                   525.0     1621.0   
+         
+                                SchoolName  AP Test Takers   Total Exams Taken  \textbackslash{}
+         0                             NaN              NaN                NaN   
+         1    UNIVERSITY NEIGHBORHOOD H.S.             39.0               49.0   
+         2          EAST SIDE COMMUNITY HS             19.0               21.0   
+         3                             NaN              NaN                NaN   
+         4  NEW EXPLORATIONS SCI,TECH,MATH            255.0              377.0   
+         
+              {\ldots}                                   priority04  \textbackslash{}
+         0    {\ldots}      Then to Manhattan students or residents   
+         1    {\ldots}                                          NaN   
+         2    {\ldots}                                          NaN   
+         3    {\ldots}                                          NaN   
+         4    {\ldots}                                          NaN   
+         
+                                 priority05 priority06 priority07  priority08  \textbackslash{}
+         0  Then to New York City residents        NaN        NaN         NaN   
+         1                              NaN        NaN        NaN         NaN   
+         2                              NaN        NaN        NaN         NaN   
+         3                              NaN        NaN        NaN         NaN   
+         4                              NaN        NaN        NaN         NaN   
+         
+           priority09 priority10                                         Location 1  \textbackslash{}
+         0        NaN        NaN  220 Henry Street\textbackslash{}nNew York, NY 10002\textbackslash{}n(40.7137{\ldots}   
+         1        NaN        NaN  200 Monroe Street\textbackslash{}nNew York, NY 10002\textbackslash{}n(40.712{\ldots}   
+         2        NaN        NaN  420 East 12 Street\textbackslash{}nNew York, NY 10009\textbackslash{}n(40.72{\ldots}   
+         3        NaN        NaN  145 Stanton Street\textbackslash{}nNew York, NY 10002\textbackslash{}n(40.72{\ldots}   
+         4        NaN        NaN  111 Columbia Street\textbackslash{}nNew York, NY 10002\textbackslash{}n(40.7{\ldots}   
+         
+                  lat        lon  
+         0  40.713764 -73.985260  
+         1  40.712332 -73.984797  
+         2  40.729783 -73.983041  
+         3  40.720569 -73.985673  
+         4  40.718725 -73.979426  
+         
+         [5 rows x 159 columns]
+\end{Verbatim}
+            
+    \subsubsection{Fill Up Null Values}\label{fill-up-null-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Fill up the null values with the column average value}
+         \PY{n}{combined} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{combined}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{combined} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Check for null values}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Null Values in Combined Data Frame =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{combined}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Null Values in Combined Data Frame = 0
+
+    \end{Verbatim}
+
+    \subsubsection{Add a School District Column for
+Mapping}\label{add-a-school-district-column-for-mapping}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}first\PYZus{}two\PYZus{}chars}\PY{p}{(}\PY{n}{dbn}\PY{p}{)}\PY{p}{:}
+             \PY{k}{return} \PY{n}{dbn}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}
+         
+         \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{school\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DBN}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{get\PYZus{}first\PYZus{}two\PYZus{}chars}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print for verification}
+         \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{school\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 0    01
+         1    01
+         2    01
+         3    01
+         4    01
+         Name: school\_dist, dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Find correlations}\label{find-correlations}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{correlations} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{corr\PYZus{}satscore} \PY{o}{=} \PY{n}{correlations}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{corr\PYZus{}satscore}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+SAT Critical Reading Avg. Score         0.997433
+SAT Math Avg. Score                     0.992862
+SAT Writing Avg. Score                  0.997205
+sat\_score                               1.000000
+AP Test Takers                          0.742299
+Total Exams Taken                       0.747097
+Number of Exams with scores 3 4 or 5    0.751203
+Total Cohort                            0.469707
+CSD                                     0.209195
+NUMBER OF STUDENTS / SEATS FILLED       0.521990
+NUMBER OF SECTIONS                      0.497414
+AVERAGE CLASS SIZE                      0.580089
+SIZE OF SMALLEST CLASS                  0.547800
+SIZE OF LARGEST CLASS                   0.498482
+SCHOOLWIDE PUPIL-TEACHER RATIO               NaN
+schoolyear                                   NaN
+fl\_percent                                   NaN
+frl\_percent                            -0.926402
+total\_enrollment                        0.493900
+ell\_num                                -0.032734
+ell\_percent                            -0.588053
+sped\_num                                0.202543
+sped\_percent                           -0.719101
+asian\_num                               0.652992
+asian\_per                               0.831369
+black\_num                               0.178459
+black\_per                              -0.401030
+hispanic\_num                            0.143639
+hispanic\_per                           -0.639662
+white\_num                               0.706445
+                                          {\ldots}   
+rr\_p                                   -0.085942
+N\_s                                     0.551170
+N\_t                                     0.436806
+N\_p                                     0.628105
+saf\_p\_11                               -0.078582
+com\_p\_11                               -0.308995
+eng\_p\_11                               -0.173111
+aca\_p\_11                               -0.171177
+saf\_t\_11                                0.275014
+com\_t\_11                                0.034989
+eng\_t\_10                                     NaN
+aca\_t\_11                                0.063366
+saf\_s\_11                                0.243283
+com\_s\_11                                0.083379
+eng\_s\_11                                0.134303
+aca\_s\_11                                0.216600
+saf\_tot\_11                              0.164197
+com\_tot\_11                             -0.068616
+eng\_tot\_11                             -0.026598
+aca\_tot\_11                              0.029286
+grade\_span\_max                               NaN
+expgrade\_span\_max                            NaN
+zip                                     0.002559
+total\_students                          0.544247
+number\_programs                         0.296832
+priority08                                   NaN
+priority09                                   NaN
+priority10                                   NaN
+lat                                    -0.416402
+lon                                    -0.424829
+Name: sat\_score, Length: 67, dtype: float64
+
+    \end{Verbatim}
+
+    \subsubsection{Plot Correlations}\label{plot-correlations}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Preparing a list of colors from matplotlib}
+         \PY{n}{colors\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{colors}\PY{o}{.}\PY{n}{\PYZus{}colors\PYZus{}full\PYZus{}map}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{colors\PYZus{}list}\PY{p}{,} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{corr\PYZus{}satscore}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{corr\PYZus{}satscore}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colors\PYZus{}list}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{corr\PYZus{}satscore}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation of Features with SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    We observe high correlations between SAT score and following factors:
+
+o	Number of Students / Seats Filled
+o	Average Class Size
+o	The highest grade the school expects to serve eventually
+o	Number of Teacher Respondents (-ve) 
+o	SAT Critical Reading Average Score
+o	Free Lunch Percent
+o	Number of distinct programs available at the school (-ve)
+
+It’s obvious to see how the ‘class-size’, ‘number of students’ and the ‘highest grade the school expects’ creates a competitive environment for the students to encourage them working hard to perform better in SAT.
+
+The strong positive relationship of ‘SAT Critical Reading Average Score’ with the SAT score shows the impact of effective reading skills on the overall SAT performance. 
+
+The positive correlation of ‘Free Lunch’ with SAT score tells the success story of government’s welfare program in the area of economically developing neighborhood and low-income immigrant regions. 
+
+It is interesting to note that higher the number of teachers’ participation in survey for expectation about student’s academia negatively influence the overall student performance in SAT. 
+
+The negative correlation of ‘Number of distinct programs available at the school’ with SAT score goes in reverse parity with the positive correlation of ‘class-size’ and ‘number of students’ factors above as more program diversity tends to reduce the class-size an number of students per course. 
+    \subsubsection{Analyze Effect of Safety on SAT
+Score}\label{analyze-effect-of-safety-on-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{saf\PYZus{}s\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Safety and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There appears to be a positive correlation between safety and SAT score
+though not so strong. There are some schools that have high safety
+standard and achieve high SAT score and some schools with low safety
+standard got low SAT score. Majority of the school from the sample falls
+between the safety score of 6.0 to 7.5 with an average SAT score below
+1500.
+
+    \subsubsection{Map Safety Score by
+Districts}\label{map-safety-score-by-districts}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Basemap}\PY{p}{(}
+             \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{merc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{llcrnrlat}\PY{o}{=}\PY{l+m+mf}{40.496044}\PY{p}{,} 
+             \PY{n}{urcrnrlat}\PY{o}{=}\PY{l+m+mf}{40.915256}\PY{p}{,} 
+             \PY{n}{llcrnrlon}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{74.255735}\PY{p}{,} 
+             \PY{n}{urcrnrlon}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{73.700272}\PY{p}{,}
+             \PY{n}{resolution}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i}\PY{l+s+s1}{\PYZsq{}}
+         \PY{p}{)}
+         
+         \PY{n}{m}\PY{o}{.}\PY{n}{drawmapboundary}\PY{p}{(}\PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}85A6D9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{drawcoastlines}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}6D5F47}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{drawrivers}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}6D5F47}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{n}{distr} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{school\PYZus{}dist}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{distr}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{longitudes} \PY{o}{=} \PY{p}{(}\PY{n}{distr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lon}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{latitudes} \PY{o}{=} \PY{p}{(}\PY{n}{distr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{m}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{longitudes}\PY{p}{,} \PY{n}{latitudes}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{zorder}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{latlon}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{distr}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{saf\PYZus{}s\PYZus{}11}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Yogi\_Ashwast\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}mpl\_toolkits\textbackslash{}basemap\textbackslash{}\_\_init\_\_.py:1708: MatplotlibDeprecationWarning: The axesPatch function was deprecated in version 2.1. Use Axes.patch instead.
+  limb = ax.axesPatch
+C:\textbackslash{}Users\textbackslash{}Yogi\_Ashwast\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}mpl\_toolkits\textbackslash{}basemap\textbackslash{}\_\_init\_\_.py:1711: MatplotlibDeprecationWarning: The axesPatch function was deprecated in version 2.1. Use Axes.patch instead.
+  if limb is not ax.axesPatch:
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Brooklyn seems to have better safety score compared to the same for the
+parts of Manhattan, Queens and Bronx region.
+
+    \subsubsection{Evaluate Racial Performance in
+SAT}\label{evaluate-racial-performance-in-sat}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Listing the races of interest}
+         \PY{n}{races} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{asian\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{black\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{racial\PYZus{}per} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{races}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Extracting the coorelation value for the shortlisted races}
+         \PY{n}{value\PYZus{}ht} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{races}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Establish plot parameters}
+         \PY{n}{x\PYZus{}cor} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{colors\PYZus{}list}\PY{p}{,} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x\PYZus{}cor}\PY{p}{,} \PY{n}{value\PYZus{}ht}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{tick\PYZus{}label}\PY{o}{=}\PY{n}{races}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colors\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation of Whites, Asians, Blacks and Hispanics with SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The whites and the Asians are found having strong positive correlation
+while the Blacks and the Hispanic are found having moderate negative
+correlation with the SAT score.
+
+This is due to the fact that the Hispanic and the Blacks might be coming
+from the immigrant families. The socio-economic factors, family support
+and surrounding environment play significant role in overall performance
+of the students.
+
+    \subsubsection{Plot Correlation Between Hispanic Proportion \& SAT
+Score}\label{plot-correlation-between-hispanic-proportion-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispanic\PYZus{}per}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Hispanic Percent and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There seems to be a moderately strong downward trend with the increase
+of Hispanic Population. Very small portion of population attains a SAT
+score of 1800 or more while majority falls under the score of 1500.
+
+    \subsubsection{Dependency: Low Sat Score \& Hispanic
+Percent}\label{dependency-low-sat-score-hispanic-percent}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1400}\PY{p}{]}
+         \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp} \PY{o}{=} \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp}\PY{p}{[}\PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{40}\PY{p}{]}
+         \PY{n}{sat\PYZus{}sc} \PY{o}{=} \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{hisp\PYZus{}per} \PY{o}{=} \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{sat\PYZus{}sc}\PY{p}{,} \PY{n}{hisp\PYZus{}per}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hispanic Percentage}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Hispanic Percent (\PYZgt{} 40}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{) and SAT Score (\PYZlt{} 1400)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Value =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{low\PYZus{}sat\PYZus{}high\PYZus{}hisp}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Correlation Value = -0.41737620009586124
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Majority of the schools with Hispanic population in the range of 40\% -
+80\% get average SAT score of around 1150. The results become clearly
+evident when plotted with 40\% or more Hispanic Proportion for SAT score
+of 1400 or less.
+
+This is mainly due to the immigrant population along with the
+socio-economic and demographic factors.
+
+    \subsubsection{List Schools with Hispanic More Than
+95\%}\label{list-schools-with-hispanic-more-than-95}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{hisp\PYZus{}per\PYZus{}95} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{95}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hisp\PYZus{}per\PYZus{}95}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SCHOOL NAME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['MANHATTAN BRIDGES HIGH SCHOOL'
+ 'WASHINGTON HEIGHTS EXPEDITIONARY LEARNING SCHOOL'
+ 'GREGORIO LUPERON HIGH SCHOOL FOR SCIENCE AND MATHEMATICS'
+ 'ACADEMY FOR LANGUAGE AND TECHNOLOGY'
+ 'INTERNATIONAL SCHOOL FOR LIBERAL ARTS'
+ 'PAN AMERICAN INTERNATIONAL HIGH SCHOOL AT MONROE'
+ 'MULTICULTURAL HIGH SCHOOL' 'PAN AMERICAN INTERNATIONAL HIGH SCHOOL']
+
+    \end{Verbatim}
+
+    \subsubsection{List Schools with Hispanic Less Than
+10\%}\label{list-schools-with-hispanic-less-than-10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{hisp\PYZus{}10\PYZus{}sat\PYZus{}1800} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hispanic\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{]}
+         \PY{n}{hisp\PYZus{}10\PYZus{}sat\PYZus{}1800} \PY{o}{=} \PY{n}{hisp\PYZus{}10\PYZus{}sat\PYZus{}1800}\PY{p}{[}\PY{n}{hisp\PYZus{}10\PYZus{}sat\PYZus{}1800}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1800}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hisp\PYZus{}10\PYZus{}sat\PYZus{}1800}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SCHOOL NAME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['STUYVESANT HIGH SCHOOL' 'BRONX HIGH SCHOOL OF SCIENCE'
+ 'BROOKLYN TECHNICAL HIGH SCHOOL'
+ 'QUEENS HIGH SCHOOL FOR THE SCIENCES AT YORK COLLEGE'
+ 'STATEN ISLAND TECHNICAL HIGH SCHOOL']
+
+    \end{Verbatim}
+
+    \subsubsection{Enlist Schools in NYC with Low Total Enrollment and Low
+SAT
+Score}\label{enlist-schools-in-nyc-with-low-total-enrollment-and-low-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Find the school with low enrolllment that get low SAT score}
+         \PY{n}{low\PYZus{}enrollment} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}enrollment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1000}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1000}\PY{p}{)} \PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Remove rows with invalid school name}
+         \PY{n}{low\PYZus{}enrollment} \PY{o}{=} \PY{n}{low\PYZus{}enrollment}\PY{p}{[}\PY{n}{low\PYZus{}enrollment}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Print for verification}
+         \PY{n}{low\PYZus{}enrollment}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{School Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 91       INTERNATIONAL COMMUNITY HIGH SCHOOL
+         126          BRONX INTERNATIONAL HIGH SCHOOL
+         139    KINGSBRIDGE INTERNATIONAL HIGH SCHOOL
+         141    INTERNATIONAL SCHOOL FOR LIBERAL ARTS
+         179            HIGH SCHOOL OF WORLD CULTURES
+         188       BROOKLYN INTERNATIONAL HIGH SCHOOL
+         225    INTERNATIONAL HIGH SCHOOL AT PROSPECT
+         237               IT TAKES A VILLAGE ACADEMY
+         253                MULTICULTURAL HIGH SCHOOL
+         286    PAN AMERICAN INTERNATIONAL HIGH SCHOO
+         Name: School Name, dtype: object
+\end{Verbatim}
+            
+    \subsubsection{Plot Correlation Between Sat Score \&
+Gender}\label{plot-correlation-between-sat-score-gender}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{gender} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{male\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{cor\PYZus{}val} \PY{o}{=} \PY{n}{combined}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{gender}\PY{p}{]}
+         \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mf}{1.0070}\PY{p}{]}
+         \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{colors\PYZus{}list}\PY{p}{,} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{cor\PYZus{}val}\PY{p}{,} \PY{l+m+mf}{0.005}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tick\PYZus{}label}\PY{o}{=}\PY{n}{gender}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{colors\PYZus{}list}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{l+m+mf}{0.995}\PY{p}{,}\PY{l+m+mf}{1.011}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Gender and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Female show very weak positive and male show very weak negative
+correlation for SAT score. This shows the relative performance of female
+and male students -- which is more or less the same.
+
+    \subsubsection{High SAT Score \& High Female
+Percentage}\label{high-sat-score-high-female-percentage}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{50}\PY{p}{]}
+         \PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem} \PY{o}{=} \PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem}\PY{p}{[}\PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1500}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Schools with SAT \PYZgt{} 1500 \PYZam{} Female \PYZgt{} 50}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{ =}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SCHOOL NAME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+            
+         \PY{c+c1}{\PYZsh{} Plot the scatter diagram }
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Female Percent (\PYZgt{} 50}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{) and SAT Score (\PYZgt{} 1500)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Correlation Value between SAT Score and Female Percentage =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{high\PYZus{}sat\PYZus{}n\PYZus{}fem}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Schools with SAT > 1500 \& Female > 50\% =
+ ['NEW EXPLORATIONS INTO SCIENCE, TECHNOLOGY AND MATH HIGH SCHOOL'
+ 'BARD HIGH SCHOOL EARLY COLLEGE'
+ 'PROFESSIONAL PERFORMING ARTS HIGH SCHOOL'
+ 'BARUCH COLLEGE CAMPUS HIGH SCHOOL'
+ 'N.Y.C. LAB SCHOOL FOR COLLABORATIVE STUDIES'
+ 'ELEANOR ROOSEVELT HIGH SCHOOL' 'MILLENNIUM HIGH SCHOOL'
+ 'BEACON HIGH SCHOOL'
+ 'FIORELLO H. LAGUARDIA HIGH SCHOOL OF MUSIC \& ART AND PERFORMING ARTS'
+ 'LEON M. GOLDSTEIN HIGH SCHOOL FOR THE SCIENCES'
+ 'BARD HIGH SCHOOL EARLY COLLEGE II' 'TOWNSEND HARRIS HIGH SCHOOL'
+ 'BENJAMIN N. CARDOZO HIGH SCHOOL' "SCHOLARS' ACADEMY"
+ 'QUEENS GATEWAY TO HEALTH SCIENCES SECONDARY SCHOOL'
+ 'BACCALAUREATE SCHOOL FOR GLOBAL EDUCATION']
+
+Correlation Value between SAT Score and Female Percentage = 0.44951913501293517
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There exists moderately positive correlation between the female
+proportion and SAT score. While tested for pool of students having more
+than 50\% female proportion and SAT score of greater than 1500, it is
+observed that around 40\% - 65\% of the total students attain SAT score
+in the range of 1000 -- 1350.
+
+    \subsubsection{SAT Score \textgreater{} 1700 \& Female Percentage
+\textgreater{} 60}\label{sat-score-1700-female-percentage-60}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{fem\PYZus{}60\PYZus{}sat\PYZus{}1700} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1700}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{60}\PY{p}{)}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Schools with SAT \PYZgt{} 1700 \PYZam{} Female \PYZgt{} 60}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{ =}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fem\PYZus{}60\PYZus{}sat\PYZus{}1700}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SCHOOL NAME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Schools with SAT > 1700 \& Female > 60\% =
+ ['BARD HIGH SCHOOL EARLY COLLEGE' 'ELEANOR ROOSEVELT HIGH SCHOOL'
+ 'BEACON HIGH SCHOOL'
+ 'FIORELLO H. LAGUARDIA HIGH SCHOOL OF MUSIC \& ART AND PERFORMING ARTS'
+ 'TOWNSEND HARRIS HIGH SCHOOL']
+
+    \end{Verbatim}
+
+    \subsubsection{Relationship Between AP Test Takers \& SAT
+Score}\label{relationship-between-ap-test-takers-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AP Test Takers }\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{/} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total\PYZus{}enrollment}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AP Test Taker (}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s2}{f Total Enrolled)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between  AP Test Takers and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corrleation value between SAT Score \PYZam{} Percent of AP Test Takers =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{combined}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ap\PYZus{}per}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corrleation value between SAT Score \& Percent of AP Test Takers = 0.05717081390766967
+
+    \end{Verbatim}
+
+    No correlation is found between the AP Test Takers and the SAT score. In
+fact, up to 40\% of the total enrollment who took AP Test scored less
+than 1400 in SAT. There are few percent of students who took AP Test and
+secured SAT score of 1800 -- 2000.
+
+The data about students' performance in AP Test Vs. SAT could give us
+more insight to further comment about the AP Test results predictive
+relevance for SAT score.
+
+    \subsubsection{Relationship Between Class Size \& SAT
+Score}\label{relationship-between-class-size-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{combined}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AVERAGE CLASS SIZE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sat Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Average Class Size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation Between Class Size and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corrleation value between SAT Score \PYZam{} Average Class Size =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{combined}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AVERAGE CLASS SIZE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corrleation value between SAT Score \& Average Class Size = 0.3810143308095523
+
+    \end{Verbatim}
+
+    Moderately strong positive correlation has been observed between the
+class size and SAT score. Students' SAT score slowly improves as the
+class size increases from 20 to 30 students. Majority of the students
+score between 1000 -- 1400 irrespective of class size. However, there
+are few exceptional cases where the students score beyond 1800.
+
+This clearly shows that performance of students in SAT is strongly
+impacted by his/her class size, higher student-teacher ratio and
+consequently the dense social environment -which collectively proves to
+be encouraging for the students.
+
+    \subsubsection{Correlation Between Different in Parent, Teacher and
+Student Responses to Surveys with SAT
+Score}\label{correlation-between-different-in-parent-teacher-and-student-responses-to-surveys-with-sat-score}
+
+    \paragraph{Listing and Cleaning Data}\label{listing-and-cleaning-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} short listing the relevant columns }
+         \PY{n}{surv\PYZus{}col} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}t\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}s\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{response} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{surv\PYZus{}col}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Cleaning the data with null values}
+         \PY{n}{response} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{any}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Making sure no null is left}
+         \PY{n}{response}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} 0
+\end{Verbatim}
+            
+    \paragraph{Develop Survey Response Differrence
+Data}\label{develop-survey-response-differrence-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Developing the survey difference response data}
+         \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}s\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}
+         \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}t\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}
+         \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}t\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}t\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{response}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}s\PYZus{}11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot survey response difference}
+         \PY{n}{resp\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}p\PYZus{}t}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aca\PYZus{}t\PYZus{}s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Print for verfication}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+    aca\_p\_s  aca\_p\_t   aca\_t\_s
+0  0.900000      1.1  0.200000
+1  0.300000      0.0  0.300000
+2  1.018611      0.4  1.418611
+3  0.300000      0.5  0.200000
+4  0.700000      1.1  0.400000
+
+    \end{Verbatim}
+
+    \paragraph{Correlation Between Parent-Student Survey Difference Response
+\& SAT
+Score}\label{correlation-between-parent-student-survey-difference-response-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{pss\PYZus{}cor0} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Correlation between Parent\PYZhy{}Student Survey Response \PYZam{} SAT Score =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+               \PY{n}{pss\PYZus{}cor0}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{response}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation for Difference between Parent\PYZhy{}Student Survey }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{Response and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Correlation between Parent-Student Survey Response \& SAT Score = -0.2892526616448787
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    It appears that there is a moderately strong negative correlation
+between the difference in Parent-Student Survey Response and SAT Score.
+Hence, more similarity of parents and student's opinion about the
+latter's academic expectation, better would it be reflected in to the
+higher SAT score. In other words, more the disparity between parents and
+student's responses for students' academic expectation score, lower
+would be the SAT score.
+
+This clearly indicates that parental involvement in student's education
+results into a better SAT performance and vice versa.
+
+    \paragraph{Correlation Between Parent-Teacher Survey Difference Response
+\& SAT
+Score}\label{correlation-between-parent-teacher-survey-difference-response-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pss\PYZus{}cor1} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Correlation between Parent\PYZhy{}Teacher Survey Response \PYZam{} SAT Score =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+               \PY{n}{pss\PYZus{}cor1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{response}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation for Difference between Parent\PYZhy{}Teacher Survey }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{Response and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Correlation between Parent-Teacher Survey Response \& SAT Score = -0.11002982952218382
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_75_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There exists weak negative relationship between the difference in
+parents and teachers' survey response and SAT score. This indicates that
+difference of opinion between the parents and the teachers over the
+expectation of student's academia has moderately reverse impact over
+student's performance in SAT. In other words, less the differences
+between the parental and teacher's opinion about student's academic
+expectation, moderately better would be student's performance in SAT.
+
+    \paragraph{Correlation Between Teacher-Student Survey Difference
+Response \& SAT
+Score}\label{correlation-between-teacher-student-survey-difference-response-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{pss\PYZus{}cor2} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Correlation between Teacher\PYZhy{}Student Survey Response \PYZam{} SAT Score =}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+               \PY{n}{pss\PYZus{}cor2}\PY{p}{)}                  
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{response}\PY{p}{[}\PY{n}{resp\PYZus{}cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{response}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sat\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Correlation for Difference between Teacher\PYZhy{}Student Survey }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s+s2}{Response and SAT Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Correlation between Teacher-Student Survey Response \& SAT Score = -0.09657508196544748
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_78_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    No correlation is found between the difference in teachers' and
+students' survey response and SAT score. This indicates that difference
+of opinion between the teachers and students over the academic
+expectation for the students have no impact over student's performance
+in SAT.
+
+    \subsubsection{Find out neighborhoods with Best
+Schools}\label{find-out-neighborhoods-with-best-schools}
+
+    \paragraph{Determine Top 10 Best School in NYC Based On SAT
+Score}\label{determine-top-10-best-school-in-nyc-based-on-sat-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Find the top 10 school based on the SAT score}
+         \PY{n}{good\PYZus{}schools} \PY{o}{=} \PY{n}{combined}\PY{p}{[}\PY{n}{combined}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1750}\PY{p}{]}
+         \PY{n}{good\PYZus{}schools} \PY{o}{=} \PY{n}{good\PYZus{}schools}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DBN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{good\PYZus{}schools}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sat\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SCHOOL NAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                  boro  sat\_score  \textbackslash{}
+         DBN                                
+         02M475      Manhattan     2096.0   
+         10X445          Bronx     1969.0   
+         31R605  Staten Island     1953.0   
+         10X696          Bronx     1920.0   
+         25Q525         Queens     1910.0   
+         28Q687         Queens     1868.0   
+         01M696      Manhattan     1856.0   
+         05M692      Manhattan     1847.0   
+         13K430       Brooklyn     1833.0   
+         02M416      Manhattan     1758.0   
+         
+                                                       SCHOOL NAME  CSD    zip  
+         DBN                                                                    
+         02M475                             STUYVESANT HIGH SCHOOL    2  10282  
+         10X445                       BRONX HIGH SCHOOL OF SCIENCE   10  10468  
+         31R605                STATEN ISLAND TECHNICAL HIGH SCHOOL   31  10306  
+         10X696  HIGH SCHOOL OF AMERICAN STUDIES AT LEHMAN COLLEGE   10  10468  
+         25Q525                        TOWNSEND HARRIS HIGH SCHOOL   25  11367  
+         28Q687  QUEENS HIGH SCHOOL FOR THE SCIENCES AT YORK CO{\ldots}   28  11433  
+         01M696                     BARD HIGH SCHOOL EARLY COLLEGE    1  10002  
+         05M692  HIGH SCHOOL FOR MATHEMATICS, SCIENCE AND ENGIN{\ldots}    5  10031  
+         13K430                     BROOKLYN TECHNICAL HIGH SCHOOL   13  11217  
+         02M416                      ELEANOR ROOSEVELT HIGH SCHOOL    2  10021  
+\end{Verbatim}
+            
+    \paragraph{Gathering NYC Property Value
+Information}\label{gathering-nyc-property-value-information}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Borough}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SchoolDist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZipCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BldgClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}sf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OwnerName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{brk\PYZus{}data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/nyc\PYZus{}property/BK2017V11.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usecols} \PY{o}{=} \PY{n}{cols}\PY{p}{)}
+         \PY{n}{brx\PYZus{}data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/nyc\PYZus{}property/BX2017V11.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usecols} \PY{o}{=} \PY{n}{cols}\PY{p}{)}
+         \PY{n}{mnh\PYZus{}data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/nyc\PYZus{}property/MN2017V11.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usecols} \PY{o}{=} \PY{n}{cols}\PY{p}{)}
+         \PY{n}{qns\PYZus{}data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/nyc\PYZus{}property/QN2017V11.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usecols} \PY{o}{=} \PY{n}{cols}\PY{p}{)}
+         \PY{n}{snr\PYZus{}data} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{databank/nyc\PYZus{}property/SI2017V11.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{usecols} \PY{o}{=} \PY{n}{cols}\PY{p}{)}
+         \PY{n}{prop\PYZus{}val} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{brk\PYZus{}data}\PY{p}{,} \PY{n}{brx\PYZus{}data}\PY{p}{,} \PY{n}{mnh\PYZus{}data}\PY{p}{,} \PY{n}{qns\PYZus{}data}\PY{p}{,} \PY{n}{snr\PYZus{}data}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print for verification}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{prop\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n}{prop\PYZus{}val}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(53340, 8)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}   Borough   CD  SchoolDist  ZipCode                Address BldgClass  \textbackslash{}
+         0      BK  309        17.0  11213.0       400 UTICA AVENUE        O2   
+         1      BK  303        13.0  11205.0    117 SANDFORD STREET        G9   
+         2      BK  301        14.0  11222.0       239 INDIA STREET        O2   
+         3      BK  315        21.0  11229.0    1819 EAST 13 STREET        D7   
+         4      BK  313        21.0  11224.0    3740 OCEANIC AVENUE        M9   
+         5      BK  318        22.0  11210.0   1805 FLATBUSH AVENUE        K4   
+         6      BK  307        15.0  11215.0           511 7 AVENUE        W1   
+         7      BK  301        14.0  11249.0      58 NORTH 8 STREET        O5   
+         8      BK  303        14.0  11205.0     38 SKILLMAN STREET        R4   
+         9      BK  312        21.0  11230.0  1613 MC DONALD AVENUE        E1   
+         
+                        OwnerName   price\_sf  
+         0    VIS BAN REALTY CORP  50.000000  
+         1        117 SANFORD LLC  50.000000  
+         2     INDIA STREET CORP.  50.000000  
+         3      AMK II REALTY LLC  50.000000  
+         4   KOZNITZ CONGREGATION  50.000000  
+         5      MERVEILLE, GLADYS  50.000000  
+         6  DCAS/DEPARTMENT OF ED  50.003959  
+         7  101 KENT ASSOCIATES I  50.008548  
+         8                    NaN  50.015724  
+         9  CB REALTY COMPANY LLC  50.019231  
+\end{Verbatim}
+            
+    \subsubsection{Finding Top 10 Cost Effective Properties for NYC School
+Neighborhood (2
+Deals/School)}\label{finding-top-10-cost-effective-properties-for-nyc-school-neighborhood-2-dealsschool}
+
+    \paragraph{Define functions to seggregate residential
+class}\label{define-functions-to-seggregate-residential-class}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Filter data frame for select residential building class }
+         \PY{k}{def} \PY{n+nf}{usage}\PY{p}{(}\PY{n}{char}\PY{p}{)}\PY{p}{:}
+             \PY{n}{usg} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+             \PY{k}{if} \PY{n}{char} \PY{o+ow}{in} \PY{n}{usg}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+
+
+    \paragraph{Define Function to Extract Neighborhood
+Details}\label{define-function-to-extract-neighborhood-details}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Define function to extract the neighborhood details}
+         \PY{k}{def} \PY{n+nf}{find\PYZus{}property}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{df}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sch\PYZus{}dst} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{zip\PYZus{}code} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZipCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{zip\PYZus{}code}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SchoolDist}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{sch\PYZus{}dst}\PY{p}{)}\PY{p}{]}
+             
+             \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{m} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{inp\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{5}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}
+             
+             \PY{k}{if} \PY{p}{(}\PY{n}{m} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Resi. Property Found}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N/A}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{N/A}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                 \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+                 
+             \PY{k}{elif} \PY{p}{(}\PY{n}{m} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OwnerName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}sf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                 \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{p}{(}\PY{n}{count} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+                         \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OwnerName}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}sf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                         \PY{n}{inp\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                         \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                         \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{0}
+                         \PY{n}{count} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                     \PY{k}{elif} \PY{p}{(}\PY{n}{count} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{break}
+             \PY{k}{return} \PY{n}{inp\PYZus{}vals}
+\end{Verbatim}
+
+
+    \paragraph{Top 10 Cost Effective Neighborhood Properties in NYC for Best
+Schools (2 choices /
+school)}\label{top-10-cost-effective-neighborhood-properties-in-nyc-for-best-schools-2-choices-school}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Set up the data frame per ascending property prices, building class and location zip code}
+         \PY{n}{sorted\PYZus{}property} \PY{o}{=} \PY{n}{prop\PYZus{}val}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{price\PYZus{}sf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BldgClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZipCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZipCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZipCode}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{errors} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coerce}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Seggregate data based on the building class for residential properties}
+         \PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Usage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BldgClass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{str}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{usage}\PY{p}{)}
+         \PY{n}{sorted\PYZus{}property} \PY{o}{=} \PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{n}{sorted\PYZus{}property}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Usage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Removing null values from the data frame}
+         \PY{n}{sorted\PYZus{}property} \PY{o}{=} \PY{n}{sorted\PYZus{}property}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Extracting Top 10 Best Neighbordhood Data}
+         \PY{n}{neighbor} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{]}
+         \PY{n}{j} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{first\PYZus{}row}\PY{p}{,} \PY{n}{second\PYZus{}row} \PY{o}{=} \PY{n}{find\PYZus{}property}\PY{p}{(}\PY{n}{good\PYZus{}schools}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CSD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SCHOOL NAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{sorted\PYZus{}property}\PY{p}{)}
+             \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{neighbor}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{first\PYZus{}row}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+                 \PY{n}{neighbor}\PY{p}{[}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{second\PYZus{}row}\PY{p}{[}\PY{n}{k}\PY{p}{]}
+             \PY{n}{j} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{c+c1}{\PYZsh{} Set up neighbor data frame for output}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Borough}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Property Address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Owner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price/Sq Ft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Neighborhood School}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{great\PYZus{}deal} \PY{o}{=} \PY{n}{pandas}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{cols}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Feed the final output in the data frame}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{neighbor}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{neighbor}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{neighbor}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{neighbor}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{neighbor}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{cols}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{neighbor}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Removing data with missing values and resetting the index}
+         \PY{n}{great\PYZus{}deal} \PY{o}{=} \PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{n}{great\PYZus{}deal}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Borough}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{great\PYZus{}deal}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Print the final results results}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{List of Least Expensive Neighborhood With Great Schools: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{great\PYZus{}deal}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+List of Least Expensive Neighborhood With Great Schools: 
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:}           Borough         Property Address                  Owner Price/Sq Ft  \textbackslash{}
+         0       Manhattan        201 WARREN STREET  TRIBECA NORTH END LLC     112.479   
+         1       Manhattan      399 CHAMBERS STREET     TRIBECA POINTE LLC     114.277   
+         2           Bronx     2450 DAVIDSON AVENUE   2460 DAVIDSON REALTY     51.4895   
+         3           Bronx     2776 SEDGWICK AVENUE      TINEO, JOSE RAMON     51.8865   
+         4   Staten Island            10 PEEL PLACE            ANN SOLAZZO      24.215   
+         5   Staten Island          41 PETER AVENUE       SCAROLA, GREGG M     24.2163   
+         6           Bronx     2450 DAVIDSON AVENUE   2460 DAVIDSON REALTY     51.4895   
+         7           Bronx     2776 SEDGWICK AVENUE      TINEO, JOSE RAMON     51.8865   
+         8          Queens    152-11 UNION TURNPIKE  ST. JOHN'S UNIVERSITY     50.8769   
+         9          Queens         154-27 64 AVENUE     WISCHHUSEN RICHARD     66.6693   
+         10         Queens          162-25 112 ROAD  CALVARY GRANDPARENT R     59.1462   
+         11      Manhattan        85 STANTON STREET         85 OWNERS CORP     97.2278   
+         12      Manhattan        138 LUDLOW STREET    TRIPUKA REALTY CORP      97.401   
+         13      Manhattan  No Resi. Property Found                    N/A         N/A   
+         14       Brooklyn        220 LINCOLN PLACE        220 LINCOLN LLC     50.0592   
+         15       Brooklyn       233 BERKELEY PLACE  233 BERKELEY PLACE LL     50.2336   
+         16      Manhattan       230 EAST 71 STREET        230 OWNERS CORP     97.0392   
+         17      Manhattan       305 EAST 75 STREET      GRUMA REALTY CORP     97.0882   
+         
+                                           Neighborhood School  
+         0                              STUYVESANT HIGH SCHOOL  
+         1                              STUYVESANT HIGH SCHOOL  
+         2                        BRONX HIGH SCHOOL OF SCIENCE  
+         3                        BRONX HIGH SCHOOL OF SCIENCE  
+         4                 STATEN ISLAND TECHNICAL HIGH SCHOOL  
+         5                 STATEN ISLAND TECHNICAL HIGH SCHOOL  
+         6   HIGH SCHOOL OF AMERICAN STUDIES AT LEHMAN COLLEGE  
+         7   HIGH SCHOOL OF AMERICAN STUDIES AT LEHMAN COLLEGE  
+         8                         TOWNSEND HARRIS HIGH SCHOOL  
+         9                         TOWNSEND HARRIS HIGH SCHOOL  
+         10  QUEENS HIGH SCHOOL FOR THE SCIENCES AT YORK CO{\ldots}  
+         11                     BARD HIGH SCHOOL EARLY COLLEGE  
+         12                     BARD HIGH SCHOOL EARLY COLLEGE  
+         13  HIGH SCHOOL FOR MATHEMATICS, SCIENCE AND ENGIN{\ldots}  
+         14                     BROOKLYN TECHNICAL HIGH SCHOOL  
+         15                     BROOKLYN TECHNICAL HIGH SCHOOL  
+         16                      ELEANOR ROOSEVELT HIGH SCHOOL  
+         17                      ELEANOR ROOSEVELT HIGH SCHOOL  
+\end{Verbatim}
+            
+    \subsubsection{Conclusion}\label{conclusion}
+•	We are able to know various critical factors that do/do not affect students’ performance in SAT examination. Based on this info, we can verify and validate how fare the current SAT system is for the diverse demographics like NYC. In case we found any flaws in the SAT system for unfair testing performances, we can get better idea about the causes to focus on and fix the system.
+
+•	We understand the impact of various demographic, socio-economic, and current credit and grading system related factors over the performance of students in SAT examination. This helps us to determine and verify how this test maintains balance amongst these factors for overall fairness of test within the widely diverse community. 
+
+•	We are able to determine top 10 best schools based on their average SAT score.
+
+•	We shortlist the least expensive but situated with the top 10 best school neighborhood regions.
+
+•	We could identify the regions of NYC neighborhood where schools do not perform well and understand whether or not there exists any ethnic diversity [to consider] for policy improvement. 
+
+•	We learn the impact of similarity and disparity of students/teachers/parents’ opinion towards student’s academia over the SAT performance. This highlights the roles and responsibilities of various players of the game and its relative significance for the final outcome.
+
+•	Based on the correlations and its severity on students’ SAT score, we can mention that SAT is reasonably fair for the diverse NYC demographics. 
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
