@@ -47,7 +47,7 @@ Why do we need to determine whether the SAT is a fair test or not? What advantag
 
 ### Technical Writeup
 
-Please refer to the approprite portion of the portfolio section to read the [detailed project write up](https://portfolio.mshah.info/best-schools-of-nyc/). 
+Please refer to the approprite portion of the portfolio section to read the [**Detailed Project Writeup**](https://portfolio.mshah.info/best-schools-of-nyc/). 
 
 ### Code Explanation
 
